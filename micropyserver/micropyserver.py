@@ -28,7 +28,7 @@ THE SOFTWARE.
 import re
 import socket
 import sys
-import io
+from app import io
 
 
 class MicroPyServer(object):

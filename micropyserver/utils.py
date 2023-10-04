@@ -178,3 +178,13 @@ def unquote(string):
             extend(item)
 
     return bytes(res).decode("utf-8")
+
+
+def get_request_auth_key(request):
+    """ Return auth key from request """
+    lines = request.split("\r\n")
+    for line in lines:
+        match = re.search("^Authorization: Bearer (.+)", line)
+        if match:
+            return match.group(1)
+    return None
