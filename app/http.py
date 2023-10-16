@@ -17,14 +17,16 @@ def setup_server():
         utils.send_response(server, "bell rang!", http_code=200)
 
     def check_auth_key(request, address):
-        if utils.get_request_auth_key(request) != config.AUTH_KEY:
+        if utils.get_request_auth_key(request) != config.HTTP_AUTH_KEY:
             utils.send_response(server, "Unauthorized", http_code=401)
             return False
         return True
 
+    server.add_route("/health", lambda req: utils.send_response(server, "OK", http_code=200))
     server.add_route("/unlock_door", unlock_door)
     server.add_route("/ring_bell", ring_bell)
 
-    server.on_request(check_auth_key)
+    if getattr(config, "HTTP_AUTH_KEY"):
+        server.on_request(check_auth_key)
 
     server.start()

@@ -2,11 +2,13 @@ from time import sleep
 
 from machine import Pin
 
-bell_switch = Pin(9, Pin.IN)
-door_switch = Pin(10, Pin.IN, pull=Pin.PULL_UP)
+# From what this page describe it is better to not use GPIO 6,8 and 9
+# https://wiki.seeedstudio.com/exp32c3_d9_d6_d8/
+bell_switch = Pin(2, Pin.IN, pull=Pin.PULL_DOWN)
+door_switch = Pin(3, Pin.IN, pull=Pin.PULL_UP)
 
-bell_ringer = Pin(3, Pin.OUT)
-door_unlocker = Pin(4, Pin.OUT)
+bell_ringer = Pin(4, Pin.OUT, value=0, drive=Pin.DRIVE_2)
+door_unlocker = Pin(5, Pin.OUT, value=0, drive=Pin.DRIVE_2)
 
 
 def unlock_door():

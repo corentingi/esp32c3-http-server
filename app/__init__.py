@@ -9,4 +9,5 @@ except Exception as e:
 def run():
     network.connect_wlan()
     io.setup_triggers()
-    http.setup_server()
+    if getattr(config, "HTTP_SERVER_ENABLED"):
+        http.setup_server()
